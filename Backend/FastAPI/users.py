@@ -1,36 +1,27 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-app = FastAPI()
 
+app = FastAPI()
 
 # Entidad user
 
 class User(BaseModel):
-    id: int
     name: str
     surname: str
+    url: str
     age: int
-    url : str
-    age: int
-
-users_list = [User(id=1, name="Alvaro",surname="Casco",url="https//almasoft.com", age=17),
-        User(name="Jesua",surname="Lopez",url="https//turtle.com",age=22),
-        User(name="Andres",surname="Guido",url="https//montype",age= 35)]
     
+users_list =[User(name= "Alvaro",surname= "Casco",url= "https://almasoft.com.ni",age= 17),
+             User(name= "Jesua",surname= "Lopez",url= "https://gutierrezcia.com.ni",age= 22),
+             User(name="Francisco",surname= "Guido",url= "https://sinriesgo.com.ni",age= 42),]
 
 @app.get("/usersjson")
-async def users():
-    return [{"name": "Alvaro", "surname":"Casco","url":"https//almasoft.com","age":17},
-            {"name": "Jesua", "surname":"Lopez","url":"https//turtle.com","age":22},
-            {"name": "Andres", "surname":"Guido","url":"https//montype.com","age": 46}]
-
+async def usersjson():
+    return [{"name":"Alvaro", "surname":"Casco","url":"https://almasoft.com.ni","age":16},
+            {"name":"Jesua", "surname":"Lopez","url":"https://gutierrezcia.com.ni","age":22},
+            {"name":"Francisco", "surname":"Guido","url":"https://sinriesgo.com.ni","age":42}]
 
 @app.get("/users")
-async def userclass():
+async def users():
     return users_list
-
-@app.get("/users/{id}")
-async def user(id: int):
-    users = filter(lambda usSer: user.id == 5, users_list)
-    return list(users)
